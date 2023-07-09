@@ -25,25 +25,25 @@ const App = () => {
     }
   };
 
-  const fetchUserDetails = async () => {
-    try {
-      const res = await axios.get('http://localhost:8000/users/me', {
-        headers: {
-          Authorization: `Bearer ${user.access_token}`,
-        },
-      });
-      setUser((prevUser) => ({
-        ...prevUser,
-        details: res.data,
-      }));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const res = await axios.get('http://localhost:8000/users/me', {
+          headers: {
+            Authorization: `Bearer ${user.access_token}`,
+          },
+        });
+        setUser((prevUser) => ({
+          ...prevUser,
+          details: res.data,
+        }));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     if (user) {
-      fetchUserDetails();
+      fetchUserData();
     }
   }, [user]);
 
@@ -73,7 +73,6 @@ const App = () => {
           )}
         </div>
       )}
-      <button onClick={fetchUserDetails}>Get User Details Independently</button>
     </div>
   );
 };

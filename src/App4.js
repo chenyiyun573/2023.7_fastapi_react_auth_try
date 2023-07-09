@@ -41,11 +41,14 @@ const App = () => {
     }
   };
 
-  useEffect(() => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+useEffect(() => {
     if (user) {
       fetchUserDetails();
     }
-  }, [user]);
+  }, []);
+  
+  
 
   return (
     <div>
@@ -63,6 +66,9 @@ const App = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={login}>Login</button>
+      <button onClick={fetchUserDetails} disabled={!user}>
+        Get User Details
+      </button>
       {user && (
         <div>
           <h3>User Details:</h3>
@@ -73,7 +79,6 @@ const App = () => {
           )}
         </div>
       )}
-      <button onClick={fetchUserDetails}>Get User Details Independently</button>
     </div>
   );
 };
